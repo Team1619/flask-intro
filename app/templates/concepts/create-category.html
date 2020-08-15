@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block header %}
+<h1>Create a new category</h1>
+{% endblock %}
+
+{% block content %}
+<form class="form" method="POST" action="">
+    {{ form.csrf_token }}
+    <div class="form-group">
+        {{form.category.label}}
+        {{form.category(class_="form-control")}}
+    </div>
+    <input class="btn btn-primary" type="submit" value="Create">
+</form>
+{% endblock %}
