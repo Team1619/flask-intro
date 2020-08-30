@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+
+{% block header %}
+<h1>Hello, user!</h1>
+{% endblock %}
+
+
+{% block content %}
+<p>You have logged in as {{ current_user.username }}</p>
+{% endblock %}

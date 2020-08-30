@@ -4,7 +4,7 @@ from sqlalchemy.orm import joinedload
 from app.concepts.forms import NewCategoryForm
 from app.concepts.models import Concept, Category
 from app.extensions import db
-
+from app.utils import flash_errors
 
 blueprint = Blueprint('concept', __name__, url_prefix='/concepts')
 
@@ -30,9 +30,7 @@ def create_category():
             flash(f"Created a category named {category.name}", "success")
             return redirect(url_for("concept.index"))
         else:
-            for field, errors in form.errors.items():
-                for error in errors:
-                    flash(f"{getattr(form, field).label.text} - {error}", "danger")
+            flash_errors(form)
             return redirect(url_for("concept.create_category"))
 
     return render_template('concepts/create-category.html', form=form)

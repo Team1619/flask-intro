@@ -2,8 +2,9 @@ import click
 from flask.cli import with_appcontext
 from sqlalchemy.orm import joinedload
 
+from app.auth.models import User
 from app.extensions import db
-from app.concepts.models import User, Concept, UserConceptProgress, Category
+from app.concepts.models import Concept, UserConceptProgress, Category
 
 
 @click.command('db-init')
@@ -12,9 +13,9 @@ def db_init():
     db.drop_all()
     db.create_all()
 
-    alice = User(username='alice')
-    bob = User(username='bob')
-    chad = User(username='chad')
+    alice = User('alice', 'password')
+    bob = User('bob', '123456')
+    chad = User('chad', 'hunter2')
 
     db.session.add(alice)
     db.session.add(bob)
