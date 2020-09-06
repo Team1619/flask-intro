@@ -1,6 +1,5 @@
 from flask import Blueprint, render_template, request, url_for, redirect, flash
 from flask_login import login_required, login_user, logout_user
-from flask_wtf import FlaskForm
 
 from app.auth.forms import LoginForm, RegisterForm
 from app.auth.models import User
@@ -38,16 +37,11 @@ def login():
     return render_template("auth/login.html", form=form)
 
 
-@blueprint.route("/logout", methods=["POST"])
+@blueprint.route("/logout")
 @login_required
 def logout():
-    form = FlaskForm(request.form)
-    if form.validate_on_submit():
-        logout_user()
-        return redirect(url_for("concept.index"))
-    else:
-        flash_errors(form)
-        return redirect(url_for("concept.index"))
+    logout_user()
+    return redirect(url_for("auth.login"))
 
 
 @blueprint.route("/register", methods=["GET", "POST"])

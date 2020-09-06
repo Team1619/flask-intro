@@ -1,7 +1,7 @@
 from flask import Flask
 from app.extensions import db, bcrypt, login_manager, csrf
 from app.commands import db_init, print_concepts
-from . import concepts, auth  # noqa
+from . import concepts, auth, public  # noqa
 
 
 def create_app():
@@ -28,6 +28,7 @@ def register_extensions(app: Flask):
 
 
 def register_blueprints(app: Flask):
+    app.register_blueprint(public.views.blueprint)
     app.register_blueprint(concepts.views.blueprint)
     app.register_blueprint(auth.views.blueprint)
 
